@@ -25,7 +25,7 @@ SECRET_KEY = '7wktd_^-c86cy+*xf=*((ib=$+5h%cix#x64scfqol^-=(qj2u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['plan.mmc-itsolutions.com/']
 
 
 # Application definition
