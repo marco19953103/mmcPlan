@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import posixpath
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,7 @@ SECRET_KEY = '7wktd_^-c86cy+*xf=*((ib=$+5h%cix#x64scfqol^-=(qj2u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['plan.mmc-itsolutions.com/']
+ALLOWED_HOSTS = ['plan.mmc-itsolutions.com', '*']
 
 
 # Application definition
@@ -37,6 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # third party
+    'rest_framework',
+
+    # Application
+    'customers.apps.CustomersConfig',
+    'employees.apps.EmployeesConfig',
+    'jobs.apps.JobsConfig',
     'mmcPlanAPI.apps.MmcplanapiConfig',
 ]
 
@@ -105,6 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -119,4 +129,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'site_media', 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/site_media/media/'
+SITE_MEDIA_URL = '/site_media/'
 STATIC_URL = '/static/'
+ADMIN_TOOLS_MEDIA_URL = '/site_media/'
+ADMIN_MEDIA_PREFIX = posixpath.join(STATIC_URL, "admin/")
