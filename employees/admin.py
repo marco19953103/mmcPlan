@@ -6,4 +6,5 @@ from .models import Employee
 
 @admin.register(Employee)
 class EmployeeAdmin(UserAdmin):
-    pass
+    fields = ('profile_image', 'username', 'password', 'email', 'first_name', 'last_name')
+    fieldsets = None
