@@ -18,7 +18,7 @@ class JobViewSet(viewsets.ModelViewSet):
     serializer_class = JobSerializer
 
 
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 def get_user_profile(request):
     call = request.data
     user = Token.objects.get(key=call['userToken']).user
@@ -38,14 +38,13 @@ def get_user_profile(request):
     return JsonResponse(response)
 
 
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 def authenticate_user(request):
     """
     :param request:
     :return:
     """
     call = request.data
-
     user = User.objects.filter(email=call['username'])
     if len(user) == 1:
         call['username'] = user[0].username
