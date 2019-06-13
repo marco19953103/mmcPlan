@@ -18,9 +18,9 @@ class JobViewSet(viewsets.ModelViewSet):
     serializer_class = JobSerializer
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def get_user_profile(request):
-    call = request.data
+    call = request.GET.dict()
     user = Token.objects.get(key=call['userToken']).user
     query = User.objects.get(id=user.id)
     serializer = None
@@ -34,17 +34,18 @@ def get_user_profile(request):
         serializer = CustomerSerializer(query, many=False)
 
     response = serializer.data if serializer is not None else None
-    print(response)
     return JsonResponse(response)
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def authenticate_user(request):
     """
     :param request:
     :return:
     """
-    call = request.data
+
+    call = request.GET.dict()
+
     user = User.objects.filter(email=call['username'])
     if len(user) == 1:
         call['username'] = user[0].username
@@ -56,9 +57,9 @@ def authenticate_user(request):
             'userToken': token.key,
             'group': user.groups.first().name
         }
-        print(response)
         return JsonResponse(response)
 
     # auth failed return error
     return JsonResponse({'error': True})
+
 
