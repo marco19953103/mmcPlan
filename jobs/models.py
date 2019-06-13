@@ -20,6 +20,14 @@ class Job(models.Model):
         return self.title
 
 
+class Position(models.Model):
+    description = models.CharField(max_length=128)
+    min_wage = models.DecimalField(decimal_places=2, default=0.00, blank=True, max_digits=10)
+
+    def __str__(self):
+        return self.description
+
+
 class JobApplicant(models.Model):
     STATUSES = (
         (0, 'pending'),
@@ -28,6 +36,7 @@ class JobApplicant(models.Model):
     )
     job = models.ForeignKey(Job, on_delete=models.PROTECT)
     employee = models.ForeignKey(Employee, on_delete=models.PROTECT)
+    position = models.ForeignKey(Position, on_delete=models.CASCADE, blank=True, null=True)
     status = models.SmallIntegerField(choices=STATUSES, default=0)
 
     def __str__(self):
@@ -35,3 +44,12 @@ class JobApplicant(models.Model):
 
     class Meta:
         unique_together = ('job', 'employee')
+
+
+class JobPositions(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.PROTECT)
+    position = models.ForeignKey(Position, on_delete=models.CASCADE, blank=True, null=True)
+    quantity = models.PositiveIntegerField(default=0, blank=True)
+
+    class Meta:
+        unique_together = ('job', 'position')
