@@ -28,4 +28,4 @@ def authenticate_user(request):
         return JsonResponse(response)
 
     # auth failed return error
-    return JsonResponse({'error': call})
+    return JsonResponse({'error': True})
