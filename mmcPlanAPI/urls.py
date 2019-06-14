@@ -11,5 +11,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('auth/', views.authenticate_user),
     path('user-profile/', views.get_user_profile),
+    path('job-applicants/', views.apply_on_job),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
