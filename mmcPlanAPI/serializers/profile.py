@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from customers.models import Customer
 from employees.models import Employee, EmployeePosition
+from .jobs import UserProfileJobApplicantSerializer
 
 
 class EmployeePositionSerializer(serializers.ModelSerializer):
@@ -13,10 +14,12 @@ class EmployeePositionSerializer(serializers.ModelSerializer):
 
 class EmployeeSerializer(serializers.ModelSerializer):
     employeeposition_set = EmployeePositionSerializer(many=True, read_only=True)
+    jobapplicant_set = UserProfileJobApplicantSerializer(many=True, read_only=True)
 
     class Meta:
         model = Employee
-        fields = ('id', 'profile_image', 'first_name', 'last_name', 'email', 'hour_rate', 'employeeposition_set')
+        fields = ('id', 'profile_image', 'first_name', 'last_name', 'email', 'hour_rate', 'employeeposition_set',
+                  'jobapplicant_set' )
 
 
 class CustomerSerializer(serializers.ModelSerializer):
