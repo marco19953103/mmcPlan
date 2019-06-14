@@ -2,6 +2,13 @@ from rest_framework import serializers
 from jobs.models import Job, JobApplicant, JobPositions
 
 
+class ApplyOnJobSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = JobApplicant
+        fields = '__all__'
+
+
 class JobPositionsSerializer(serializers.ModelSerializer):
     position = serializers.StringRelatedField(many=False)
 
@@ -16,7 +23,7 @@ class JobApplicantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = JobApplicant
-        fields = ('id', 'employee', 'position', 'status')
+        fields = ('id', 'position', 'employee', 'status')
 
 
 class JobSerializer(serializers.ModelSerializer):
