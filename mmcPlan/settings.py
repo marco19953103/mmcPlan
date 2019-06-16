@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'customers.apps.CustomersConfig',
     'employees.apps.EmployeesConfig',
     'jobs.apps.JobsConfig',
+    'agenda.apps.AgendaConfig',
     'mmcPlanAPI.apps.MmcplanapiConfig',
 ]
 

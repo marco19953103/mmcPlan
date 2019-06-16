@@ -1,15 +1,12 @@
 import json
 
 from rest_framework import viewsets
-
 from rest_framework.authtoken.models import Token
 
 from django.http import JsonResponse
-from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 
-from mmcPlanAPI.serializers.jobs import JobSerializer, Job, ApplyOnJobSerializer, JobApplicant
-from mmcPlanAPI.serializers.profile import Employee
+from mmcPlanAPI.serializers.jobs import JobSerializer, Job, JobApplicant
 from jobs.models import Position
 
 
@@ -19,23 +16,6 @@ class JobViewSet(viewsets.ModelViewSet):
     """
     queryset = Job.objects.all()
     serializer_class = JobSerializer
-
-
-class ApplyOnJobViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = JobApplicant.objects.all()
-    serializer_class = ApplyOnJobSerializer
-
-
-# {
-#     "id": 1,
-#     "status": 0,
-#     "job": 1,
-#     "employee": 4,
-#     "position": 1
-# },
 
 
 @csrf_exempt
