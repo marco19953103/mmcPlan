@@ -2,6 +2,7 @@ from rest_framework import viewsets
 from rest_framework.authtoken.models import Token
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
+from django.http import JsonResponse
 from mmcPlanAPI.serializers.agenda import AgendaSerializer, AgendaItem
 from django.views.decorators.csrf import csrf_exempt
 from datetime import date
@@ -24,6 +25,7 @@ class AgendaViewSet(viewsets.ViewSet):
         serializer = AgendaSerializer(queryset, many=True)
         return Response(serializer.data)
 
+    @csrf_exempt
     def create(self, request):
         call = request.data
         token = get_object_or_404(Token, key=call.pop('userToken'))
@@ -32,9 +34,9 @@ class AgendaViewSet(viewsets.ViewSet):
         call['employee_id'] = token.user.id
         try:
             AgendaItem.objects.create(**call)
-            return Response({'message': 'Item is aangemaakt!', 'error': False})
+            return JsonResponse({'message': 'Item is aangemaakt!', 'error': False})
         except Exception as e:
-            return Response({'message' : str(e), 'error': True})
+            return JsonResponse({'message' : str(e), 'error': True})
 
 
 @csrf_exempt
@@ -46,6 +48,6 @@ def add_agenda_item(request):
     call['employee_id'] = token.user.id
     try:
         AgendaItem.objects.create(**call)
-        return Response({'message': 'Item is aangemaakt!', 'error': False})
+        return JsonResponse({'message': 'Item is aangemaakt!', 'error': False})
     except Exception as e:
-        return Response({'message': str(e), 'error': True})
+        return JsonResponse({'message': str(e), 'error': True})
